@@ -202,10 +202,13 @@
           </div>
           <p class="note">
             <strong>About this interior view.</strong> The panorama above is a
-            sample 3D render used as a demonstration of the walkthrough. It is
-            not a real InsurScan capture of a real home. The outside view
-            below is a real photograph of a house exterior and yard, used
-            as a demonstration. It is not a real InsurScan capture either.
+            real photograph of a furnished studio apartment — bed, living
+            area and kitchen in one room, shot in 360. It is used as a
+            demonstration of the walkthrough. It is not a real InsurScan
+            capture of a real home, and it is not the same house as the
+            outside view below. The outside view is a real photograph of a
+            house exterior and yard, used as a demonstration. It is not a
+            real InsurScan capture either.
           </p>
           <div class="grid2" style="margin-top:48px">
             <div class="panel">
@@ -338,13 +341,18 @@
 
     <script>
       // Inside: 360 panorama walkthrough (Pannellum).
-      // Source: Lucas's original Oracle dashboard demo. The panorama image
-      // is a sample 3D render, labelled as a demonstration on the page.
+      // Real photograph, not a render: a furnished studio apartment
+      // interior, shot in 360 and published by Maison Pawli as the raw
+      // equirectangular file from their 360 virtual tour. Same source
+      // as the outside panorama. Source page:
+      // https://maisonpawli.com/360-virtual-tours/
+      // Image verified: HTTP 200, 3200x1600 (2:1 equirectangular),
+      // 539 KB, viewed directly — real bed, sofa, kitchen, windows.
       try {
         if (window.pannellum) {
           pannellum.viewer('panorama', {
             "type": "equirectangular",
-            "panorama": "https://renderstuff.com/assets/133/equirectangular-360-panorama-interior-rendering-by-3ds-max-and-v-ray.jpg",
+            "panorama": "https://maisonpawli.com/wp-content/uploads/2026/05/Studio-Apartment.jpg",
             "autoLoad": true,
             "autoRotate": -1,
             "title": "Main living area — sample",
