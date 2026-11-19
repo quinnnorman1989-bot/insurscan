@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Walk through a sample InsurScan property: the inside in 360, and the outside in 360 — a real photograph of a house exterior and yard." />
-    <link rel="icon" href="data:," />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
     <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
     <title>InsurScan — 3D walkthrough, sample property</title>
@@ -59,7 +59,16 @@
       nav a[aria-current="page"]{color:var(--ink);font-weight:700}
       nav a.cta{color:var(--ink);font-weight:700;border:1px solid var(--ink);padding:10px 16px;margin-left:8px}
       nav a.cta:hover{background:var(--ink);color:#fff}
-      @media (max-width:680px){ nav a:not(.cta){display:none} }
+      .menu-btn{display:none;font-family:var(--font);font-size:14px;font-weight:700;color:var(--ink);background:var(--paper);border:1px solid var(--ink);padding:10px 14px;min-height:44px;cursor:pointer}
+      @media (max-width:680px){
+        .topbar{flex-wrap:wrap}
+        .menu-btn{display:inline-flex;align-items:center}
+        nav{flex-wrap:wrap}
+        nav a:not(.cta){display:none}
+        nav.open{flex-direction:column;align-items:flex-start;width:100%}
+        nav.open a{display:inline-flex;width:100%}
+        nav.open a.cta{margin-left:0}
+      }
 
       .hero{padding:88px 0 72px;border-bottom:1px solid var(--line)}
       .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 0}
@@ -144,12 +153,15 @@
     <header>
       <div class="wrap topbar">
         <a class="wordmark" href="index.html">INSURSCAN<span>.</span></a>
-        <nav aria-label="Page">
+        <nav aria-label="Page" id="nav-links">
+          <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
           <a href="index.html#problem">The problem</a>
           <a href="index.html#capture">Capture</a>
           <a href="index.html#record">The record</a>
           <a href="dashboard.html">Dashboard</a>
           <a href="walkthrough.html" aria-current="page">3D walkthrough</a>
+          <a href="index.html#company">Who we are</a>
+          <a href="index.html#faq">Questions</a>
           <a class="cta" href="index.html#contact">Contact</a>
         </nav>
       </div>
@@ -352,7 +364,7 @@
         if (window.pannellum) {
           pannellum.viewer('panorama', {
             "type": "equirectangular",
-            "panorama": "https://maisonpawli.com/wp-content/uploads/2026/05/Studio-Apartment.jpg",
+            "panorama": "images/studio-apartment.jpg",
             "autoLoad": true,
             "autoRotate": -1,
             "title": "Main living area — sample",
@@ -379,7 +391,7 @@
         if (window.pannellum) {
           pannellum.viewer('panorama-out', {
             "type": "equirectangular",
-            "panorama": "https://maisonpawli.com/wp-content/uploads/2026/05/backyard-night-mid-height.jpg",
+            "panorama": "images/backyard-night.jpg",
             "autoLoad": true,
             "autoRotate": -1,
             "title": "Outside the house — sample",
@@ -392,6 +404,27 @@
           ext.innerHTML = '<p style="color:#fff;padding:24px">The sample exterior panorama could not be loaded. The sample dashboard still shows the same property.</p>';
         }
       }
+    </script>
+
+    <script>
+      // Mobile menu toggle.
+      (function () {
+        var btn = document.querySelector('.menu-btn');
+        var nav = btn && btn.closest('nav');
+        if (!btn || !nav) { return; }
+        btn.addEventListener('click', function () {
+          var open = nav.classList.toggle('open');
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          btn.textContent = open ? 'Close' : 'Menu';
+        });
+        nav.addEventListener('click', function (e) {
+          if (e.target.tagName === 'A' && nav.classList.contains('open')) {
+            nav.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+            btn.textContent = 'Menu';
+          }
+        });
+      })();
     </script>
   </body>
 </html>
